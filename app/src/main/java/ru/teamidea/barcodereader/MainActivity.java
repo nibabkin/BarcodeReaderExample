@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
                 integrator.setCaptureActivity(BarcodeCaptureActivity.class);
+                integrator.setOrientationLocked(false);
                 integrator.initiateScan();
             }
         });
