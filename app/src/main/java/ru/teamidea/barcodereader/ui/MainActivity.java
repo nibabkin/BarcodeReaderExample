@@ -1,4 +1,4 @@
-package ru.teamidea.barcodereader;
+package ru.teamidea.barcodereader.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import ru.teamidea.barcodereader.R;
+import ru.teamidea.barcodereader.data.Product;
+import ru.teamidea.barcodereader.data.ProductsData;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 Log.d("MainActivity", "Scanned");
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                Product scannedProduct = ProductsData.getInstance().getProductByCode(result.getContents());
+                Toast.makeText(this, scannedProduct.getName(), Toast.LENGTH_LONG).show();
             }
         } else {
             // This is important, otherwise the result will not be passed to the fragment
