@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -31,10 +32,9 @@
             android:theme="@style/zxing_CaptureTheme"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="fullSensor"/>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="c25f4c02b4b462d3014d5a2dbb420a82366417a5" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
