@@ -50,4 +50,14 @@ public class ProductsData {
         }
         return null;
     }
+
+    public ArrayList<Product> getProductsStartsWith(String startCode) {
+        ArrayList<Product> filteredProducts = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getCode().startsWith(startCode)) {
+                filteredProducts.add(product);
+            }
+        }
+        return filteredProducts;
+    }
 }
