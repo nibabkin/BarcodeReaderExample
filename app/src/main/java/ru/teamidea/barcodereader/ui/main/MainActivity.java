@@ -37,22 +37,24 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
-                integrator.setCaptureActivity(BarcodeCaptureActivity.class);
-                integrator.setOrientationLocked(false);
-                integrator.initiateScan();
-            }
-        });
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         productsRecycler = (RecyclerView) findViewById(R.id.productRecycler);
         productsRecycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ProductsAdapter();
         productsRecycler.setAdapter(adapter);
+        productsRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 10) {
+                    fab.hide();
+                } else if (dy < -10) {
+                    fab.show();
+                }
+            }
+        });
 
         searchByCode = (EditText) findViewById(R.id.searchByCode);
         searchByCode.addTextChangedListener(new TextWatcher() {
@@ -74,6 +76,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchByCode.setText("");
+                IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+                integrator.setCaptureActivity(BarcodeCaptureActivity.class);
+                integrator.setOrientationLocked(false);
+                integrator.initiateScan();
             }
         });
     }
