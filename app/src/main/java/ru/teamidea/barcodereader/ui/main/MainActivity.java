@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText searchByCode;
     private View clear;
     private TextView empty;
+    private FloatingActionButton scan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        scan = (FloatingActionButton) findViewById(R.id.fab);
 
         productsRecycler = (RecyclerView) findViewById(R.id.productRecycler);
         productsRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -51,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dy > 10) {
-                    fab.hide();
-                } else if (dy < -10) {
-                    fab.show();
+                if (dy > 5) {
+                    scan.hide();
+                } else if (dy < -5) {
+                    scan.show();
                 }
             }
         });
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 searchByCode.setText("");
@@ -103,8 +104,6 @@ public class MainActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
-
-        fab.requestFocus();
 
         empty = (TextView) findViewById(R.id.productRecyclerEmpty);
         showEmptyViewIfNeeded();
@@ -124,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
                 empty.setText("К сожалению, в базе нет товаров с таким номeром :(");
             }
         }
+        if(!scan.isShown()) {
+            scan.show();
+        }
     }
 
     @Override
@@ -132,15 +134,16 @@ public class MainActivity extends AppCompatActivity {
         if (result != null) {
             if (result.getContents() == null) {
                 Log.d("MainActivity", "Cancelled scan");
-                Snackbar.make(searchByCode, "Сканирование отменено", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(searchByCode, "Сканирование отменено", Snackbar.LENGTH_LONG).show();
             } else {
                 Log.d("MainActivity", "Scanned");
                 Product scannedProduct = ProductsData.getInstance().getProductByCode(result.getContents());
                 if (scannedProduct == null) {
-                    Snackbar.make(searchByCode, "Такого товара в базе нет :(", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(searchByCode, "Такого товара в базе нет :(", Snackbar.LENGTH_LONG).show();
+                    adapter.clearList();
+                } else {
+                    adapter.updateProduct(scannedProduct);
                 }
-
-                adapter.updateProduct(scannedProduct);
                 showEmptyViewIfNeeded();
             }
         } else {

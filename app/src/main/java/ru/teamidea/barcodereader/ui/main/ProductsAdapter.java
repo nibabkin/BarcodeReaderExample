@@ -19,7 +19,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     private ArrayList<Product> products;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView productId;
         public TextView code;
         public TextView name;
         public TextView category;
@@ -28,7 +27,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
         public ViewHolder(View rootView) {
             super(rootView);
-            productId = (TextView) rootView.findViewById(R.id.productId);
             code = (TextView) rootView.findViewById(R.id.code);
             name = (TextView) rootView.findViewById(R.id.name);
             category = (TextView) rootView.findViewById(R.id.category);
@@ -71,12 +69,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Product product = getProductByPosition(position);
         if (product != null) {
-            holder.productId.setText("Идентификацонный номер: " + product.getId());
-            holder.code.setText("Штрих-код: " + product.getCode());
-            holder.name.setText("Наименование: " + product.getName());
-            holder.category.setText("Категория: " + product.getCategory());
-            holder.price.setText("Цена: " + product.getPrice() + " руб.");
-            holder.quantity.setText("Количество: " + product.getQuantity());
+            holder.code.setText(product.getCode());
+            holder.name.setText(product.getName());
+            holder.category.setText(product.getCategory());
+            holder.price.setText(product.getPrice() + " \u20BD");
+            holder.quantity.setText("Кол-во: " + product.getQuantity());
         }
 
     }

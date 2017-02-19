@@ -68,7 +68,7 @@
         android:layout_margin="32dp"
         android:textSize="18dp"
         android:textColor="@color/md_blue_500"
-        android:drawableTop="@drawable/ic_product_barcode"
+        android:drawableTop="@drawable/ic_barcode_gray"
         android:drawablePadding="8dp"
         android:text="Отсканируйте штрихкод продукта или введите номер вручную."
         android:layout_gravity="center"

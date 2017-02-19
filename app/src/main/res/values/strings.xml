@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">BarcodeReaderExample</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Barcode Reader</string>
     <string name="title_activity_barcode_capture">BarcodeCaptureActivity</string>
 </resources>
