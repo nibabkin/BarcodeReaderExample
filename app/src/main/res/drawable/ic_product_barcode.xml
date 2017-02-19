@@ -1,0 +1,13 @@
+<vector android:height="120dp" android:viewportHeight="439.281"
+    android:viewportWidth="439.281" android:width="120dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M31,58.3H5c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5h26c2.8,0 5,-2.2 5,-5V63.3C36,60.5 33.8,58.3 31,58.3z"/>
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M77,58.3h-22c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5h22c2.8,0 5,-2.2 5,-5V63.3C82,60.5 79.8,58.3 77,58.3z"/>
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M114,58.3h-11c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5h11c2.8,0 5,-2.2 5,-5V63.3C119,60.5 116.8,58.3 114,58.3z"/>
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M147.8,58.3h-12.6c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5h12.6c2.8,0 5,-2.2 5,-5V63.3C152.8,60.5 150.6,58.3 147.8,58.3z"/>
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M199.8,58.3h-20.6c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5h20.6c2.8,0 5,-2.2 5,-5V63.3C204.8,60.5 202.6,58.3 199.8,58.3z"/>
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M233.5,58.3h-10.3c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5h10.3c2.8,0 5,-2.2 5,-5V63.3C238.5,60.5 236.3,58.3 233.5,58.3z"/>
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M269.3,58.3h-12.8c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5h12.8c2.8,0 5,-2.2 5,-5V63.3C274.3,60.5 272.1,58.3 269.3,58.3z"/>
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M321.5,58.3h-10.3c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5H321.5c2.8,0 5,-2.2 5,-5V63.3C326.5,60.5 324.3,58.3 321.5,58.3z"/>
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M377,58.3h-21.5c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5H377c2.8,0 5,-2.2 5,-5V63.3C382,60.5 379.8,58.3 377,58.3z"/>
+    <path android:fillColor="@android:color/darker_gray" android:pathData="M434.3,58.3h-30.7c-2.8,0 -5,2.2 -5,5v312.7c0,2.8 2.2,5 5,5h30.7c2.8,0 5,-2.2 5,-5V63.3C439.3,60.5 437,58.3 434.3,58.3z"/>
+</vector>

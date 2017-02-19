@@ -3,6 +3,7 @@ package ru.teamidea.barcodereader.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView productsRecycler;
     private ProductsAdapter adapter;
     private EditText searchByCode;
+    private View clear;
+    private TextView empty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +69,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().isEmpty()) {
+                    clear.setVisibility(View.INVISIBLE);
                     adapter.clearList();
                 } else {
+                    clear.setVisibility(View.VISIBLE);
                     ArrayList<Product> serchedProducts = ProductsData.getInstance().getProductsStartsWith(charSequence.toString());
                     adapter.updateProducts(serchedProducts);
                 }
+                showEmptyViewIfNeeded();
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+        clear = findViewById(R.id.clear);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchByCode.setText("");
             }
         });
 
@@ -89,6 +103,27 @@ public class MainActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         });
+
+        fab.requestFocus();
+
+        empty = (TextView) findViewById(R.id.productRecyclerEmpty);
+        showEmptyViewIfNeeded();
+    }
+
+
+    private void showEmptyViewIfNeeded() {
+        if (adapter.getItemCount() > 0) {
+            empty.setVisibility(View.INVISIBLE);
+            productsRecycler.setVisibility(View.VISIBLE);
+        } else {
+            productsRecycler.setVisibility(View.INVISIBLE);
+            empty.setVisibility(View.VISIBLE);
+            if (searchByCode.getText().toString().isEmpty()) {
+                empty.setText("Отсканируйте штрихкод продукта или введите номер вручную");
+            } else {
+                empty.setText("К сожалению, в базе нет товаров с таким номeром :(");
+            }
+        }
     }
 
     @Override
@@ -97,11 +132,16 @@ public class MainActivity extends AppCompatActivity {
         if (result != null) {
             if (result.getContents() == null) {
                 Log.d("MainActivity", "Cancelled scan");
-                Toast.makeText(this, "Сканирование отменено", Toast.LENGTH_LONG).show();
+                Snackbar.make(searchByCode, "Сканирование отменено", Snackbar.LENGTH_SHORT).show();
             } else {
                 Log.d("MainActivity", "Scanned");
                 Product scannedProduct = ProductsData.getInstance().getProductByCode(result.getContents());
+                if (scannedProduct == null) {
+                    Snackbar.make(searchByCode, "Такого товара в базе нет :(", Snackbar.LENGTH_SHORT).show();
+                }
+
                 adapter.updateProduct(scannedProduct);
+                showEmptyViewIfNeeded();
             }
         } else {
             // This is important, otherwise the result will not be passed to the fragment

@@ -81,6 +81,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
     }
 
+    @Override
+    public long getItemId(int position) {
+        return products.get(position).getId();
+    }
+
     private Product getProductByPosition(int position) {
         return products.get(position);
     }
