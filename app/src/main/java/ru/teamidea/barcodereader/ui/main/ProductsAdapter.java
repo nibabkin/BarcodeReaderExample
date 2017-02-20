@@ -24,6 +24,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         public TextView category;
         public TextView price;
         public TextView quantity;
+        public TextView firm;
 
         public ViewHolder(View rootView) {
             super(rootView);
@@ -32,6 +33,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             category = (TextView) rootView.findViewById(R.id.category);
             price = (TextView) rootView.findViewById(R.id.price);
             quantity = (TextView) rootView.findViewById(R.id.quantity);
+            firm = (TextView) rootView.findViewById(R.id.firm);
         }
     }
 
@@ -73,7 +75,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             holder.name.setText(product.getName());
             holder.category.setText(product.getCategory());
             holder.price.setText(product.getPrice() + " \u20BD");
-            holder.quantity.setText("Кол-во: " + product.getQuantity());
+            holder.quantity.setText("В наличии: " + product.getQuantity());
+            holder.firm.setText(product.getFirm());
         }
 
     }

@@ -41,12 +41,20 @@
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="80dp"
                 android:layout_marginStart="16dp"
                 android:textColor="@android:color/primary_text_light"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 tools:text="123.00 ₽" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="Продукты"
+            android:layout_marginTop="4dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,11 +63,11 @@
             android:layout_marginTop="4dp">
 
             <TextView
-                android:id="@+id/category"
+                android:id="@+id/firm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:text="Продукты" />
+                tools:text="ЗАО Рога и копыта" />
 
             <TextView
                 android:id="@+id/quantity"
@@ -67,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:minWidth="80dp"
-                tools:text="Кол-во: 20" />
+                tools:text="В наличии: 20" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
