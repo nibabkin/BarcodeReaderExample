@@ -20,4 +20,12 @@
     <style name="WhiteEditTextTheme">
         <item name="colorAccent">@color/md_white_1000</item>
     </style>
+
+    <style name="RedButtonTheme">
+        <item name="colorButtonNormal">@color/md_red_500</item>
+    </style>
+
+    <style name="GreenButtonTheme">
+        <item name="colorButtonNormal">@color/md_green_500</item>
+    </style>
 </resources>

@@ -17,6 +17,12 @@ import ru.teamidea.barcodereader.data.Product;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
     private ArrayList<Product> products;
+    private OnProductClickedListener listener;
+
+
+    public interface OnProductClickedListener {
+        void onProductClicked(int id);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView code;
@@ -25,9 +31,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         public TextView price;
         public TextView quantity;
         public TextView firm;
+        public View root;
 
         public ViewHolder(View rootView) {
             super(rootView);
+            root = rootView.findViewById(R.id.item_root);
             code = (TextView) rootView.findViewById(R.id.code);
             name = (TextView) rootView.findViewById(R.id.name);
             category = (TextView) rootView.findViewById(R.id.category);
@@ -37,8 +45,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         }
     }
 
-    public ProductsAdapter() {
+    public ProductsAdapter(OnProductClickedListener listener) {
         products = new ArrayList<>();
+        this.listener = listener;
     }
 
     public void updateProducts(ArrayList<Product> products) {
@@ -69,8 +78,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Product product = getProductByPosition(position);
+        final Product product = getProductByPosition(position);
         if (product != null) {
+            holder.root.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onProductClicked(product.getId());
+                    }
+                }
+            });
             holder.code.setText(product.getCode());
             holder.name.setText(product.getName());
             holder.category.setText(product.getCategory());

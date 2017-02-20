@@ -11,10 +11,13 @@
     app:cardCornerRadius="5dp">
 
     <LinearLayout
+        android:id="@+id/item_root"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:background="?attr/selectableItemBackground">
 
         <TextView
             android:id="@+id/code"

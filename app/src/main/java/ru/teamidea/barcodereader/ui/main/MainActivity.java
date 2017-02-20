@@ -1,5 +1,6 @@
 package ru.teamidea.barcodereader.ui.main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,8 +25,9 @@ import ru.teamidea.barcodereader.R;
 import ru.teamidea.barcodereader.data.Product;
 import ru.teamidea.barcodereader.data.ProductsData;
 import ru.teamidea.barcodereader.ui.BarcodeCaptureActivity;
+import ru.teamidea.barcodereader.ui.product.ProductDetailsActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProductsAdapter.OnProductClickedListener {
 
     private RecyclerView productsRecycler;
     private ProductsAdapter adapter;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         productsRecycler = (RecyclerView) findViewById(R.id.productRecycler);
         productsRecycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ProductsAdapter();
+        adapter = new ProductsAdapter(this);
         productsRecycler.setAdapter(adapter);
         productsRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -130,25 +132,38 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() == null) {
-                Log.d("MainActivity", "Cancelled scan");
-                Snackbar.make(searchByCode, "Сканирование отменено", Snackbar.LENGTH_LONG).show();
-            } else {
-                Log.d("MainActivity", "Scanned");
-                Product scannedProduct = ProductsData.getInstance().getProductByCode(result.getContents());
-                if (scannedProduct == null) {
-                    Snackbar.make(searchByCode, "Такого товара в базе нет :(", Snackbar.LENGTH_LONG).show();
-                    adapter.clearList();
-                } else {
-                    adapter.updateProduct(scannedProduct);
-                }
-                showEmptyViewIfNeeded();
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_CANCELED) {
+               Snackbar.make(searchByCode, "Письмо об ошибке отправлено", Snackbar.LENGTH_LONG).show();
             }
         } else {
-            // This is important, otherwise the result will not be passed to the fragment
-            super.onActivityResult(requestCode, resultCode, data);
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (result != null) {
+                if (result.getContents() == null) {
+                    Log.d("MainActivity", "Cancelled scan");
+                    Snackbar.make(searchByCode, "Сканирование отменено", Snackbar.LENGTH_LONG).show();
+                } else {
+                    Log.d("MainActivity", "Scanned");
+                    Product scannedProduct = ProductsData.getInstance().getProductByCode(result.getContents());
+                    if (scannedProduct == null) {
+                        Snackbar.make(searchByCode, "Такого товара в базе нет :(", Snackbar.LENGTH_LONG).show();
+                        adapter.clearList();
+                        showEmptyViewIfNeeded();
+                    } else {
+                        startActivityForResult(ProductDetailsActivity.getLaunchIntent(this, scannedProduct.getId()), 1);
+                    }
+
+                }
+            } else {
+                // This is important, otherwise the result will not be passed to the fragment
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+
         }
+    }
+
+    @Override
+    public void onProductClicked(int id) {
+        startActivityForResult(ProductDetailsActivity.getLaunchIntent(this, id), 1);
     }
 }
