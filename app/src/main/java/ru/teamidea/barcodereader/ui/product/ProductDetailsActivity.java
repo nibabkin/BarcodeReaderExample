@@ -2,9 +2,7 @@ package ru.teamidea.barcodereader.ui.product;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -135,24 +133,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Отчет об ошибке");
-            builder.setMessage("Отправить отчет об ошибке с фотографией?");
-            builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
-            builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                    setResult(Activity.RESULT_CANCELED);
-                    finish();
-                }
-            });
-            builder.show();
+            setResult(Activity.RESULT_CANCELED);
+            finish();
         }
     }
 
